@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Descriptografar Mensagem</title>
+</head>
+<body>
+    <h2>Descriptografar Mensagem</h2>
+    <textarea id="encryptedMessage" placeholder="Insira a mensagem criptografada"></textarea><br>
+    <button onclick="decryptMessage()">Descriptografar</button>
+
+    <h3>Mensagem Original:</h3>
+    <textarea id="decryptedMessage" readonly></textarea>
+
+    <script>
+        // Suponha que `privateKey` foi exportada/importada corretamente entre páginas
+        let privateKey; // Carregar a chave privada da primeira página ou armazenamento seguro
+
+        async function importPrivateKey() {
+            const keyData = window.localStorage.getItem("privateKey"); // Exemplo de armazenamento seguro
+            privateKey = await window.crypto.subtle.importKey(
+                "jwk",
+                JSON.parse(keyData),
+                { name: "RSA-OAEP", hash: "SHA-256" },
+                true,
+                ["decrypt"]
+            );
+        }
+
+        async function decryptMessage() {
+            await importPrivateKey(); // Importa a chave privada
+            const encryptedMessage = document.getElementById("encryptedMessage").value;
+            const decodedMessage = Uint8Array.from(atob(encryptedMessage), c => c.charCodeAt(0));
+
+            const decrypted = await window.crypto.subtle.decrypt(
+                { name: "RSA-OAEP" },
+                privateKey,
+                decodedMessage
+            );
+
+            const decoder = new TextDecoder();
+            document.getElementById("decryptedMessage").value = decoder.decode(decrypted);
+        }
+    </script>
+</body>
+</html>
