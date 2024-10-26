@@ -3,17 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criptografia e Descriptografia</title>
+    <title>Criptografia e Descriptografia de Mensagem</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>App de Criptografia Assimétrica</h1>
-        <p>Este aplicativo permite criptografar e descriptografar mensagens usando um par de chaves assimétricas.</p>
-        <div class="links">
-            <a href="encrypt.html" class="button">Ir para Criptografar Mensagem</a>
-            <a href="decrypt.html" class="button">Ir para Descriptografar Mensagem</a>
+    <div class="main-container">
+        <!-- Título à Esquerda -->
+        <div class="title-section">
+            <h1>Criptografia e Descriptografia de Mensagem</h1>
+        </div>
+
+        <!-- Seção de Campos à Direita -->
+        <div class="form-section">
+            <!-- Seção de Criptografia -->
+            <div class="box">
+                <h3>Criptografar Mensagem</h3>
+                <textarea id="message" placeholder="Digite sua mensagem"></textarea><br>
+                <button onclick="generateKeys()">Gerar Chaves</button>
+                <button onclick="encryptMessage()">Criptografar</button>
+
+                <h4>Mensagem Criptografada:</h4>
+                <textarea id="encryptedMessage" readonly></textarea>
+            </div>
+
+            <!-- Seção de Descriptografia -->
+            <div class="box">
+                <h3>Descriptografar Mensagem</h3>
+                <textarea id="inputEncryptedMessage" placeholder="Insira a mensagem criptografada"></textarea><br>
+                <button onclick="decryptMessage()">Descriptografar</button>
+
+                <h4>Mensagem Original:</h4>
+                <textarea id="decryptedMessage" readonly></textarea>
+            </div>
         </div>
     </div>
+
+    <script src="js/encrypt.js"></script>
+    <script src="js/decrypt.js"></script>
 </body>
 </html>
